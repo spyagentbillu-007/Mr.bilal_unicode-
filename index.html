@@ -7,7 +7,7 @@
 <title>Mr.Bilal Mega Unicode Table</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&family=Noto+Sans+Symbols&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&family=Noto+Sans+Symbols&family=Noto+Sans+Lisu&display=swap" rel="stylesheet">
 <style>
 :root{color-scheme:dark;--bg:#091225;--panel:#111e35;--tile:#263956;--tile2:#304866;--text:#f4f7ff;--muted:#aab8d0;--accent:#8ab4ff}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Noto Sans Symbols 2","Noto Sans Symbols","Segoe UI Symbol",sans-serif}
@@ -50,7 +50,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:25px 10px}
 <div class="namebox">
 <input id="nameInput" placeholder="Write your name">
 <select id="nameStyle">
-<option value="bold">Bold mathematical</option><option value="double">Double-struck</option><option value="italic">Italic</option><option value="sans">Sans-serif bold</option><option value="gothic">Gothic / Fraktur</option><option value="circled">Circled letters</option>
+<option value="bold">Bold mathematical</option><option value="double">Double-struck</option><option value="italic">Italic</option><option value="sans">Sans-serif bold</option><option value="gothic">Gothic / Fraktur</option><option value="circled">Circled letters</option><option value="lisu">Lisu (Fraser) Unicode</option>
 </select>
 <div class="result" id="nameResult">Your stylish name</div>
 <button class="action" id="copyName">Copy stylish name</button>
@@ -107,6 +107,7 @@ const maps={
 bold:[0x1D400,0x1D41A],double:[0x1D538,0x1D552],italic:[0x1D434,0x1D44E],sans:[0x1D5D4,0x1D5EE],gothic:[0x1D504,0x1D51E]
 };
 function styleName(s,style){
+if(style==='lisu'){const lisu={A:'ꓪ',B:'ꓐ',C:'ꓚ',D:'ꓓ',E:'ꓰ',F:'ꓝ',G:'ꓖ',H:'ꓧ',I:'ꓲ',J:'ꓙ',K:'ꓗ',L:'ꓡ',M:'ꓟ',N:'ꓠ',O:'ꓳ',P:'ꓑ',Q:'ꓨ',R:'ꓣ',S:'ꓢ',T:'ꓔ',U:'ꓴ',V:'ꓦ',W:'ꓪ',X:'ꓫ',Y:'ꓬ',Z:'ꓜ'};return [...s].map(ch=>{const u=ch.toUpperCase();if(lisu[u])return lisu[u];if(ch==='.')return 'ꓸ';return ch}).join('')}
 if(style==='circled')return [...s].map(ch=>{let n=ch.toUpperCase().charCodeAt(0);if(n>=65&&n<=90)return String.fromCodePoint(0x24B6+n-65);if(n>=48&&n<=57)return n===48?'⓪':String.fromCodePoint(0x2460+n-49);return ch}).join('');
 let pair=maps[style];if(!pair)return s;
 return [...s].map(ch=>{let n=ch.codePointAt(0);if(n>=65&&n<=90)return String.fromCodePoint(pair[0]+n-65);if(n>=97&&n<=122)return String.fromCodePoint(pair[1]+n-97);return ch}).join('');
